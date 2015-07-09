@@ -1,0 +1,16 @@
+@startuml
+
+SRAS -> WorldServer : websocket handshake
+WorldServer --> SRAS : websocket handshake ack
+
+SRAS -> WorldServer : check api key
+WorldServer --> SRAS : check result
+
+alt success
+  WorldServer -> SRAS : system info
+  WorldServer -> SRAS : character list
+  SRAS -> Site : ticket list
+  Site --> SRAS
+end
+
+@enduml
