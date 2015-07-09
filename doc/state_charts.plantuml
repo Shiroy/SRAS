@@ -1,0 +1,24 @@
+@startuml
+
+[*] --> getApiKey
+[*] --> connect : api key found
+getApiKey --> connect
+
+connect --> use
+use --> connect : Connection lost
+
+state use {
+  [*] --> dashboard
+
+  state activities {
+    state player
+    state guild
+    state dynamicMap
+  }
+
+  dashboard --> activities
+}
+
+use --> [*]
+
+@enduml
