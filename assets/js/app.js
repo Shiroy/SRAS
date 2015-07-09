@@ -1,4 +1,4 @@
-var sras = angular.module('sras', ['ui.router']);
+var sras = angular.module('sras', ['ui.router', 'ui.bootstrap']);
 
 sras.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/');
@@ -14,5 +14,9 @@ sras.config(function($stateProvider, $urlRouterProvider){
     })
     .state('connect', {
       template: loadView('connect'),
+      controller: 'connect'
+    })
+    .state('dashboard', {
+      template: loadView('dashboard')
     })
 });
