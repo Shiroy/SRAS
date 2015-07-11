@@ -4,6 +4,6 @@ div.container-fluid
       p 
         b Entrez votre clé d'accès
       p
-        input(type='text')
+        input(type='text' ng-model='apiKey')
       p
-        button.btn.btn-success(ng-model='apiKey' ng-click='ok()') Valider
+        button.btn.btn-success(ng-click='ok()' ng-disabled='!apiKey.length') Valider

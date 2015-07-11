@@ -6,6 +6,6 @@ sras.controller('Boot', function($state){
 
   //Do all init stuff here
 
-  $state.go('dashboard');
+  $state.go('getApiKey');
 
 })
