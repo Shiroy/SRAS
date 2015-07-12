@@ -17,6 +17,7 @@ sras.config(function($stateProvider, $urlRouterProvider){
       controller: 'connect'
     })
     .state('dashboard', {
-      template: loadView('dashboard')
+      template: loadView('dashboard'),
+      controller: 'dashboard'
     })
 });

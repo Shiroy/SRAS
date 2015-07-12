@@ -44,36 +44,30 @@ div.container-fluid
     div.col-lg-6
       div.row
         div.col-lg-6
-          div.well(style="max-height: 50%;")
+          div.well
             div.row
               div.col-lg-12
                 b.text-info World Alliance &nbsp;
                 label
                   input(type="checkbox") 
                   span Fusionner avec le world horde
-            div.row
+            div.row(style="max-height: 500px; overflow-y: auto;")
               div.col-lg-12
-                p
-                  b Truc: 
-                  span Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus quis purus ut tempor.
-                p
-                  b Machin :
-                  span Pellentesque hendrerit, nibh at lobortis molestie, augue leo interdum nisi, ullamcorper elementum felis dui luctus est.
+                p(ng-repeat="msg in worldA2")
+                  b {{msg.player}}:&nbsp; 
+                  span {{msg.message}}
                 p
                   input.form-control(type='text' placeholder="Votre réponse")
         div.col-lg-6
-          div.well(style="max-height: 50%;")
+          div.well
             div.row
               div.col-lg-12
                 b.text-danger World Horde &nbsp;
-            div.row
+            div.row(style="max-height: 500px; overflow-y: auto;")
               div.col-lg-12
-                p
-                  b Truc: 
-                  span Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus quis purus ut tempor.
-                p
-                  b Machin :
-                  span Pellentesque hendrerit, nibh at lobortis molestie, augue leo interdum nisi, ullamcorper elementum felis dui luctus est.
+                  p(ng-repeat="msg in worldH2")
+                    b {{msg.player}}:&nbsp; 
+                    span {{msg.message}}
                 p
                   input.form-control(type='text' placeholder="Votre réponse")
       div.row

@@ -83,14 +83,16 @@ function sendMessage(msg, succesResponse, succesResponseHandler, failureResponse
   webSocket.send(frame);
 }
 
-/*sras.factory('Socket', function($websocet, state){
-  var socket = $websocet('ws://62.210.100.11:21194/');
+function registerListener(msg, callback) {
+    if(msg === undefined || callback === undefined)
+        throw "You must provide a message to intercept and a callback function";
 
-  socket.onMessage(function(message){
-    dispatchMessage(JSON.parse(message.data));
-  });
+    msgWait = {
+        convId : 0,
+        handler : callback
+    }
 
-  socket.sendMessage = sendMessage;
-
-  return socket;
-});*/
+    if(wantedMsg[msg] === undefined)
+      wantedMsg[msg] = [];
+    wantedMsg[msg].push(msgWait);
+}
