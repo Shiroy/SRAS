@@ -91,6 +91,9 @@ div.container-fluid
               p 
                 textarea
               button.btn.btn-default Passer une annonce
+            b Personnage à utiliser pour les chats
+            select.form-control(ng-model='usedChar')
+                option(ng-repeat='c in characters' value='{{c.guid}}') {{c.name}}
       div.row
         p Mes conversations
         div.col-lg-12
