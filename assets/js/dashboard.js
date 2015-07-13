@@ -32,8 +32,20 @@ sras.controller('dashboard', function($scope){
     sendMessage(getCharactersMsg, 'characterList', function(msg){
         $scope.characters = msg.characters;
         if($scope.characters[0] !== undefined)
+        {
             $scope.usedChar = msg.characters[0].guid.toString();
+            $scope.changeCharacter();
+        }
 
         $scope.$apply();
     })
+
+    $scope.changeCharacter = function(){
+        var characterChangeMsg = {
+            msg: 'selectedCharacterChange',
+            guid: Number($scope.usedChar)
+        }
+
+        sendMessage(characterChangeMsg);
+    }
 })
