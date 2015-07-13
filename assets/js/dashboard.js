@@ -4,6 +4,8 @@ sras.controller('dashboard', function($scope){
     $scope.worldH2 = [];
 
     $scope.characters = [];
+    $scope.worldA2Msg = '';
+    $scope.worldH2Msg = '';
 
     $scope.usedChar = 0;
 
@@ -47,5 +49,18 @@ sras.controller('dashboard', function($scope){
         }
 
         sendMessage(characterChangeMsg);
+    }
+
+    $scope.sendToWorld = function(isAlliance, msg){
+        var worldChat = {
+            msg: 'worldChat',
+            isAlliance: isAlliance,
+            content: msg
+        }
+
+        sendMessage(worldChat);
+
+        $scope.worldA2Msg = '';
+        $scope.worldH2Msg = '';
     }
 })

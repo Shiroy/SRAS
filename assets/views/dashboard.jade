@@ -57,7 +57,7 @@ div.container-fluid
                   b {{msg.player}}:&nbsp; 
                   span {{msg.message}}
                 p
-                  input.form-control(type='text' placeholder="Votre réponse")
+                  input.form-control(type='text' placeholder="Votre réponse" ng-model="worldA2Msg" ng-enter="sendToWorld(true, worldA2Msg)")
         div.col-lg-6
           div.well
             div.row
@@ -69,7 +69,7 @@ div.container-fluid
                     b {{msg.player}}:&nbsp; 
                     span {{msg.message}}
                 p
-                  input.form-control(type='text' placeholder="Votre réponse")
+                  input.form-control(type='text' placeholder="Votre réponse" ng-model="worldH2Msg" ng-enter="sendToWorld(false, worldH2Msg)")
       div.row
         div.col-lg-12
           div.well
