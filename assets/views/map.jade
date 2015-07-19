@@ -1,5 +1,10 @@
 div.col-lg-12
     div.row
+        div.col-lg-12
+            p Carte :
+                select.form-control(ng-model="selectedMap")
+                    option(ng-repeat="c in cartes" value="{{$index}}") {{c.name}}
+    div.row
         div.col-lg-12#canvas-container(style="width: 100%; height: 500px;")        
             canvas#view(width=1024, height=768) Your browser don't support canvas
     div.row

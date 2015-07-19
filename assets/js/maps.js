@@ -1,23 +1,3 @@
-var mapOpt = {
-    base : "assets/maps/azeroth",
-    startX: 17,
-    startY: 20,
-    nbX: 45-17,
-    nbY: 61-20,
-    repere : [
-        {
-            img : {i: 31, j: 49},
-            locale: {x: 235, y: 187},
-            globale: {x: -9458.9306, y: 44.6871} //Coordonnée de .gps (Attention : les axes sont inversé par rapport à l'mage xWoW <=> yImage et yWow <=> xImage)
-        },
-        {
-            img: {i: 33, j: 38},
-            locale: {x: 44, y: 233},
-            globale: {x: -3689.0549, y: -620.7180}
-        }
-    ]
-}
-
 // function generateConvVector(opt){
 //     var coordLocal = [
 //         {
@@ -37,6 +17,8 @@ var mapOpt = {
 //
 //     return vecteurConversion;
 // }
+
+var fs = require('fs');
 
 sras.controller('map', function($scope, $interval, $modal){
     var canvas = document.getElementById('view');
@@ -60,6 +42,71 @@ sras.controller('map', function($scope, $interval, $modal){
     var alpha=0, beta=0, tx=0, ty=0;
 
     var displayedPlayers = [];
+    $scope.cartes = [];
+    $scope.selectedMap = "0";
+
+    function loadMaps(){
+        fs.readdir('assets/maps', function(err, files){
+            if(err){
+                console.log(err);
+                return;
+            }
+
+            files.forEach(function(f){
+                fs.stat('assets/maps/' + f, function(err, stat){
+                    if(stat.isDirectory()){
+                        fs.exists('assets/maps/' + f + '/map.json', function(ok){
+                            if(!ok)
+                                return;
+                            fs.readFile('assets/maps/' + f + '/map.json', function(err, data){
+                                if(err)
+                                    throw err;
+                                var obj = JSON.parse(data);
+                                obj.path = 'assets/maps/' + f;
+                                initMapInfo(obj);
+                            })
+                        })
+                    }
+                })
+            })
+
+        })
+    }
+
+    function initMapInfo(map){
+        var minX=null, maxX=null, minY=null, maxY=null;
+        var map_parser = /map(\d+)_(\d+).png/;
+        fs.readdir(map.path, function(err, files){
+
+            files.forEach(function(f){
+                if((chunk = map_parser.exec(f)) !== null){
+                    if(minX == null || minX > chunk[1]){
+                        minX = Number(chunk[1]);
+                    }
+                    if(maxX == null || maxX < chunk[1]){
+                        maxX = Number(chunk[1]);
+                    }
+                    if(minY == null || minY > chunk[2]){
+                        minY = Number(chunk[2]);
+                    }
+                    if(maxY == null || maxY < chunk[2]){
+                        maxY = Number(chunk[2]);
+                    }
+                }
+            });
+
+            map.startX = minX;
+            map.nbX = maxX - minX;
+            map.startY = minY;
+            map.nbY = maxY - minY;
+
+            $scope.cartes.push(map);
+            $scope.selectedMap = "0";
+        })
+
+    }
+
+    loadMaps();
 
     function initMap() {
         var coordLocal = [
@@ -130,7 +177,7 @@ sras.controller('map', function($scope, $interval, $modal){
 
         console.log("Resizing canvas");
 
-        draw();
+        //draw();
     }
 
     window.onresize = resizeCanvas;
@@ -205,14 +252,9 @@ sras.controller('map', function($scope, $interval, $modal){
         return pixel;
     }
 
-    $scope.wantedPlayers = [
-        "Eryldor",
-        "Testsras"
-    ];
+    $scope.wantedPlayers = new Array();
 
-    $scope.wantedGuilds = [
-        "Rez and Die"
-    ];
+    $scope.wantedGuilds = new Array();
 
     $scope.removeItem = function(arr, item){
         arr.splice(arr.indexOf(item), 1);
@@ -232,21 +274,21 @@ sras.controller('map', function($scope, $interval, $modal){
         })
     }
 
-    var updateTimer = $interval(function(){
-        var msg = {
-            msg: "getPlayersPosition",
-            players: $scope.wantedPlayers,
-            guilds: $scope.wantedGuilds,
-        }
+    // var updateTimer = $interval(function(){
+    //     var msg = {
+    //         msg: "getPlayersPosition",
+    //         players: $scope.wantedPlayers,
+    //         guilds: $scope.wantedGuilds,
+    //     }
+    //
+    //     sendMessage(msg, 'playersPosition', function(msg){
+    //         pins = msg.players;
+    //     });
+    // }, 1000);
+    //
+    // $scope.$on('$destroy', function(){
+    //     $interval.cancel(updateTimer);
+    // })
 
-        sendMessage(msg, 'playersPosition', function(msg){
-            pins = msg.players;
-        });
-    }, 1000);
-
-    $scope.$on('$destroy', function(){
-        $interval.cancel(updateTimer);
-    })
-
-    load();
+    //load();
 })
