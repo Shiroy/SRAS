@@ -38,11 +38,10 @@ var mapOpt = {
 //     return vecteurConversion;
 // }
 
-sras.controller('map', function($scope, $interval){
+sras.controller('map', function($scope, $interval, $modal){
     var canvas = document.getElementById('view');
     var ctx = canvas.getContext('2d');
     var tiles;
-
     var positionVue = {
         x: 4000,
         y: 5000
@@ -217,6 +216,20 @@ sras.controller('map', function($scope, $interval){
 
     $scope.removeItem = function(arr, item){
         arr.splice(arr.indexOf(item), 1);
+    }
+
+    $scope.ajouterJoueur = function(){
+        var textDialog = openGetTextDialog($modal, 'Ajouter un joueur', 'Entrer le pseudo du joueur à ajouter : ');
+        textDialog.result.then(function(pName){
+            $scope.wantedPlayers.push(pName);
+        })
+    }
+
+    $scope.ajouterGuilde = function(){
+        var textDialog = openGetTextDialog($modal, 'Ajouter une guilde', 'Entrer le nom de la guilde à ajouter : ');
+        textDialog.result.then(function(gName){
+            $scope.wantedGuilds.push(gName);
+        })
     }
 
     var updateTimer = $interval(function(){

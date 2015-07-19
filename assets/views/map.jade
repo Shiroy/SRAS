@@ -6,7 +6,7 @@ div.col-lg-12
         div.col-lg-6
             p Liste des joueurs affichées
             p
-                button.btn.btn-success Ajouter
+                button.btn.btn-success(ng-click="ajouterJoueur()") Ajouter
             table.table
                 tr
                     th Pseudo
@@ -18,7 +18,7 @@ div.col-lg-12
         div.col-lg-6
             p Liste des guildes suivies
             p
-                button.btn.btn-success Ajouter
+                button.btn.btn-success(ng-click="ajouterGuilde()") Ajouter
             table.table
                 tr
                     th Nom

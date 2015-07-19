@@ -1,0 +1,9 @@
+div.modal-header
+	h3.modal-title {{title}}
+div.modal-body
+	p {{question}}
+	p
+		input(type="text" ng-model="response")
+div.modal-footer
+	button.btn.btn-success(ng-click="ok()") Valider
+	button.btn.btn-danger(ng-click="cancel()") Annuler
