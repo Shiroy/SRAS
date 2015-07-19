@@ -20,6 +20,10 @@ sras.config(function($stateProvider, $urlRouterProvider){
       template: loadView('dashboard'),
       controller: 'dashboard'
     })
+    .state('dashboard.map', {
+        template: loadView('map'),
+        controller: 'map'
+    });
 });
 
 sras.directive('ngEnter', function () {

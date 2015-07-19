@@ -1,3 +1,4 @@
+
 div.container-fluid
   div.row
     h1(align='center') SRAS
@@ -40,6 +41,8 @@ div.container-fluid
                   li
                     a(href="#") Eryldore &nbsp;&nbsp;
                       span.text-primary (Orque, Chaman, Niveau 65)
+                hr
+                a.btn.btn-primary(ui-sref=".map") Afficher la carte dynamique
             
     div.col-lg-6
       div.row
@@ -68,17 +71,11 @@ div.container-fluid
                   p(ng-repeat="msg in worldH2")
                     b {{msg.player}}:&nbsp; 
                     span {{msg.message}}
-                p
-                  input.form-control(type='text' placeholder="Votre réponse" ng-model="worldH2Msg" ng-enter="sendToWorld(false, worldH2Msg)")
+                  p
+                    input.form-control(type='text' placeholder="Votre réponse" ng-model="worldH2Msg" ng-enter="sendToWorld(false, worldH2Msg)")
       div.row
         div.col-lg-12
-          div.well
-            h2 Joueur Eryldor
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat enim quis eros sodales, vel pretium eros faucibus. Morbi ipsum eros, accumsan sed mattis a, pulvinar eget elit. Nulla facilisi. Curabitur hendrerit, libero ut condimentum sodales, libero justo sodales metus, vel placerat leo massa ut urna. Cras pretium dignissim ipsum, ut scelerisque metus semper ac. Etiam auctor efficitur tellus lobortis dignissim. Proin imperdiet varius porttitor. Nulla enim justo, ullamcorper a nisi quis, sagittis mattis enim. Proin magna leo, pretium tempus scelerisque sit amet, suscipit nec risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec nec vehicula quam, sed finibus urna. Curabitur sed erat sollicitudin, hendrerit tellus vel, mattis elit. Nulla consectetur tellus eget felis malesuada dapibus. Nam ac ex non sapien sagittis suscipit quis et tortor.
-            p Proin id dignissim justo. Vestibulum consequat blandit nunc, in tempus arcu viverra quis. Donec sagittis dolor eu nulla hendrerit, nec molestie elit blandit. Donec dignissim ipsum lorem, in laoreet mauris malesuada tincidunt. Phasellus aliquam, leo venenatis mollis vehicula, magna leo viverra risus, tempus euismod risus enim vitae metus. Fusce non metus quis dolor placerat fermentum. Vestibulum id dignissim diam. Vivamus bibendum iaculis dui, eu hendrerit elit posuere in. Vivamus faucibus ornare orci et auctor. Etiam in laoreet libero. Cras sollicitudin diam ut consequat elementum. Integer bibendum lorem at ante sagittis, quis pretium nulla rhoncus. Nam vel massa risus. Sed a tellus et purus tempor commodo pellentesque gravida urna. Aliquam vitae cursus velit.
-            p Aliquam lorem lectus, suscipit vel eleifend et, tincidunt et mauris. Donec vulputate interdum urna. Nunc tempus nisl dui, sed consequat erat semper ac. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean ultricies id metus sit amet tempus. Curabitur euismod lobortis viverra. Maecenas et mattis lectus, a suscipit dui. Nullam tincidunt mollis dui sit amet tincidunt. Donec scelerisque vestibulum velit, vel volutpat augue congue fringilla. Sed scelerisque vulputate rutrum. Mauris lobortis magna imperdiet maximus sollicitudin.
-            p Nulla aliquet risus et venenatis efficitur. Praesent gravida metus nec libero faucibus, ac imperdiet metus lobortis. Fusce hendrerit neque vitae ultrices vestibulum. Vestibulum blandit lectus purus, vel lacinia arcu posuere a. Duis metus ligula, tempus in nibh eu, luctus rhoncus eros. Nunc aliquet eros ligula, ac egestas lacus faucibus non. Cras ipsum dui, mollis eu tempor sagittis, venenatis non erat. Cras tincidunt felis nulla, quis consectetur lacus mollis et. Quisque congue faucibus ex, at condimentum arcu lacinia nec. Pellentesque nec arcu vestibulum, egestas enim nec, malesuada elit. Nunc interdum lectus ut tortor pulvinar scelerisque. Aliquam at orci vitae magna tempor finibus. Nulla lacinia pulvinar tincidunt. Vivamus tristique tortor sed neque vehicula, at sollicitudin tortor molestie. Aliquam eget tempus mi, eget semper mi.
-            p Fusce vel commodo nibh, eget imperdiet lacus. Donec lacinia, felis eu condimentum imperdiet, felis tellus iaculis leo, sit amet interdum nibh lectus sit amet urna. Nam et tortor eget nisi dignissim varius. Nullam mi orci, congue ut lectus quis, porttitor porta nulla. Integer vestibulum vitae lorem at pharetra. Etiam hendrerit felis at magna imperdiet egestas. Nullam id purus tellus. Aliquam erat volutpat. Duis at nulla eu risus elementum consectetur quis id elit. Pellentesque placerat non ante eget pretium. Morbi nec vestibulum nulla. Proin nisi eros, eleifend sed luctus vitae, aliquam efficitur purus. Nunc tortor tellus, euismod at lobortis nec, dapibus eu velit.
+          div(ui-view="")
     div.col-lg-3
       div.row
         div.col-lg-12
