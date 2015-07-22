@@ -19,14 +19,15 @@
 // }
 
 var fs = require('fs');
+var async = require('async');
 
 sras.controller('map', function($scope, $interval, $modal){
     var canvas = document.getElementById('view');
     var ctx = canvas.getContext('2d');
     var tiles;
     var positionVue = {
-        x: 4000,
-        y: 5000
+        x: 600,
+        y: 7000
     }
 
     var dragging = false;
@@ -43,7 +44,7 @@ sras.controller('map', function($scope, $interval, $modal){
 
     var displayedPlayers = [];
     $scope.cartes = [];
-    $scope.selectedMap = "0";
+    $scope.mapLoaded = false;
 
     function loadMaps(){
         fs.readdir('assets/maps', function(err, files){
@@ -52,28 +53,42 @@ sras.controller('map', function($scope, $interval, $modal){
                 return;
             }
 
-            files.forEach(function(f){
+            async.map(files, function(f, callback){
                 fs.stat('assets/maps/' + f, function(err, stat){
+
+                    if(err)
+                        callback(err, null);
+
                     if(stat.isDirectory()){
                         fs.exists('assets/maps/' + f + '/map.json', function(ok){
                             if(!ok)
-                                return;
+                                callback(null, 'ok');
                             fs.readFile('assets/maps/' + f + '/map.json', function(err, data){
                                 if(err)
-                                    throw err;
+                                    callback(err);
                                 var obj = JSON.parse(data);
                                 obj.path = 'assets/maps/' + f;
-                                initMapInfo(obj);
+                                initMapInfo(obj, callback);
                             })
                         })
                     }
+                    else{
+                        callback(null, 'ok');
+                    }
                 })
+            }, function(err, res){
+                if(err)
+                    throw err;
+                $scope.mapLoaded = "true";
+                $scope.selectedMap = $scope.cartes[2];
+                $scope.$apply();
+                $scope.selectMap($scope.selectedMap);
             })
 
         })
     }
 
-    function initMapInfo(map){
+    function initMapInfo(map, callback){
         var minX=null, maxX=null, minY=null, maxY=null;
         var map_parser = /map(\d+)_(\d+).png/;
         fs.readdir(map.path, function(err, files){
@@ -101,14 +116,23 @@ sras.controller('map', function($scope, $interval, $modal){
             map.nbY = maxY - minY;
 
             $scope.cartes.push(map);
-            $scope.selectedMap = "0";
+            callback(null, 'ok');
         })
 
     }
 
     loadMaps();
 
+    $scope.selectMap = function(map) {
+        mapOpt = map;
+        load();
+    }
+
     function initMap() {
+
+        if(mapOpt.repere === undefined)
+            return;
+
         var coordLocal = [
             {
                 x: (mapOpt.repere[0].img.i - mapOpt.startX) * 256 + mapOpt.repere[0].locale.x,
@@ -145,7 +169,7 @@ sras.controller('map', function($scope, $interval, $modal){
             positionVue.x -= dx / scale;
             positionVue.y -= dy / scale;
 
-            //console.log(positionVue);
+            console.log(positionVue);
 
             lastMousePos = {
                 x: e.clientX,
@@ -177,7 +201,7 @@ sras.controller('map', function($scope, $interval, $modal){
 
         console.log("Resizing canvas");
 
-        //draw();
+        draw();
     }
 
     window.onresize = resizeCanvas;
@@ -205,13 +229,14 @@ sras.controller('map', function($scope, $interval, $modal){
                     this.isOk = true;
                 }
                 tiles[i][j].onerror = function() {};
-                var src = mapOpt.base + '/map' + (i + mapOpt.startX) + '_' + (j+mapOpt.startY) + '.png';
+                var src = mapOpt.path + '/map' + (i + mapOpt.startX) + '_' + (j+mapOpt.startY) + '.png';
                 tiles[i][j].src = src;
                 //console.log(src);
             }
         }
 
         initMap();
+        //positionVue = wowCoordToPixel(0, 0);
 
         resizeCanvas();
     }
@@ -235,7 +260,9 @@ sras.controller('map', function($scope, $interval, $modal){
                 var pix = wowCoordToPixel(pin);
                 pix.x -= pinImg.width/2;
                 pix.y -= pinImg.height/2;
-                //console.log(pix);
+                positionVue.x = pix.x - 200;
+                positionVue.y = pix.y - 200
+                console.log(pix);
                 ctx.drawImage(pinImg, pix.x, pix.y);
             });
         }
@@ -274,21 +301,21 @@ sras.controller('map', function($scope, $interval, $modal){
         })
     }
 
-    // var updateTimer = $interval(function(){
-    //     var msg = {
-    //         msg: "getPlayersPosition",
-    //         players: $scope.wantedPlayers,
-    //         guilds: $scope.wantedGuilds,
-    //     }
-    //
-    //     sendMessage(msg, 'playersPosition', function(msg){
-    //         pins = msg.players;
-    //     });
-    // }, 1000);
-    //
-    // $scope.$on('$destroy', function(){
-    //     $interval.cancel(updateTimer);
-    // })
+    var updateTimer = $interval(function(){
+        var msg = {
+            msg: "getPlayersPosition",
+            players: $scope.wantedPlayers,
+            guilds: $scope.wantedGuilds,
+        }
+
+        sendMessage(msg, 'playersPosition', function(msg){
+            pins = msg.players;
+        });
+    }, 1000);
+
+    $scope.$on('$destroy', function(){
+        $interval.cancel(updateTimer);
+    })
 
     //load();
 })
