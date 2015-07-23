@@ -4,6 +4,8 @@ sras.controller('getApiKey', function($state, $scope){
   $scope.ok = function(){
     config.apiKey = $scope.apiKey;
 
+    //TODO: Sauvegarger les config
+
     $state.go('connect');
   }
 })
