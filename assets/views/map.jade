@@ -18,7 +18,8 @@ div.col-lg-12
                     th Pseudo
                     th #
                 tr(ng-repeat="p in wantedPlayers")
-                    td {{p}}
+                    td 
+                        a(ng-click="followPlayer(p)" href="#") {{p}}
                     td
                         button.btn.btn-danger(ng-click="removeItem(wantedPlayers, p)") Supprimer
         div.col-lg-6

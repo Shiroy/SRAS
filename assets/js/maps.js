@@ -45,6 +45,8 @@ sras.controller('map', function($scope, $interval, $modal){
     var displayedPlayers = [];
     $scope.cartes = [];
     $scope.mapLoaded = false;
+    var aPlayerIsFollowed = false;
+    var followedPlayer = '';
 
     function loadMaps(){
         fs.readdir('assets/maps', function(err, files){
@@ -125,6 +127,7 @@ sras.controller('map', function($scope, $interval, $modal){
 
     $scope.selectMap = function(map) {
         mapOpt = map;
+
         load();
     }
 
@@ -149,6 +152,9 @@ sras.controller('map', function($scope, $interval, $modal){
 
         beta = (coordLocal[1].y - coordLocal[0].y) / (mapOpt.repere[1].globale.x - mapOpt.repere[0].globale.x);
         ty = (coordLocal[0].y - beta * mapOpt.repere[0].globale.x) / beta;
+
+        positionVue.x = coordLocal[0].x - ctx.canvas.width/2;
+        positionVue.y = coordLocal[0].y - ctx.canvas.height/2;
     }
 
     canvas.onmousedown = function(e) {
@@ -163,6 +169,7 @@ sras.controller('map', function($scope, $interval, $modal){
     canvas.onmousemove = function(e) {
         if(dragging)
         {
+            aPlayerIsFollowed = false;
             var dx = e.clientX - lastMousePos.x;
             var dy = e.clientY - lastMousePos.y;
 
@@ -260,9 +267,14 @@ sras.controller('map', function($scope, $interval, $modal){
                 var pix = wowCoordToPixel(pin);
                 pix.x -= pinImg.width/2;
                 pix.y -= pinImg.height/2;
-                positionVue.x = pix.x - 200;
-                positionVue.y = pix.y - 200
-                console.log(pix);
+
+                if(aPlayerIsFollowed){
+                    if(followedPlayer == pin.name){
+                        positionVue.x = pix.x - ctx.canvas.width/2;
+                        positionVue.y = pix.y - ctx.canvas.height/2;
+                    }
+                }
+
                 ctx.drawImage(pinImg, pix.x, pix.y);
             });
         }
@@ -302,6 +314,10 @@ sras.controller('map', function($scope, $interval, $modal){
     }
 
     var updateTimer = $interval(function(){
+
+        if($scope.wantedPlayers.length == 0 && $scope.wantedGuilds.length == 0)
+            return;
+
         var msg = {
             msg: "getPlayersPosition",
             players: $scope.wantedPlayers,
@@ -315,7 +331,12 @@ sras.controller('map', function($scope, $interval, $modal){
 
     $scope.$on('$destroy', function(){
         $interval.cancel(updateTimer);
-    })
+    });
+
+    $scope.followPlayer = function(playerToFollow) {
+        followedPlayer = playerToFollow;
+        aPlayerIsFollowed = true;
+    }
 
     //load();
 })
