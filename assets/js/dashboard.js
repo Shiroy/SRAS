@@ -9,6 +9,30 @@ sras.controller('dashboard', function($scope){
 
     $scope.usedChar = 0;
 
+    $scope.searchMethods = [
+        {
+            type: 1,
+            name: 'Personnage'
+        },
+        {
+            type: 2,
+            name: 'Guilde'
+        },
+        {
+            type: 3,
+            name: 'Compte'
+        },
+        {
+            type: 4,
+            name: 'Tous les personnage ayant un item'
+        },
+        {
+            type: 5,
+            name: 'Tous les personnage ayant un haut fait'
+        }
+    ];
+    $scope.selectedSearchMethod = 1;
+
     registerListener('worldChat', function(msg){
         var newChat = {
             player: msg.playerName,

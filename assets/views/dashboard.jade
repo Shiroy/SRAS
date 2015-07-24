@@ -23,10 +23,8 @@ div.container-fluid
             div.row
               div.col-lg-12
                 form.form-inline
-                  div.form-group
-                    select.form-control
-                      option Par nom
-                      option Par guilde
+                  div.form-group(style='width: 100%;')
+                    select.form-control(ng-options="m.type as m.name for m in searchMethods" ng-model="selectedSearchMethod" style='width: inherit;')
                   div.form-group
                     input(type="text" placeholder="Recherche..." value="Eryl").form-control
                   button.btn.btn-primary Rechercher
