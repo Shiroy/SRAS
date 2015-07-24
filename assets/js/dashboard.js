@@ -12,26 +12,33 @@ sras.controller('dashboard', function($scope){
     $scope.searchMethods = [
         {
             type: 1,
-            name: 'Personnage'
+            name: 'Personnage',
+            placeholder: 'Entrer le nom du personnage'
         },
         {
             type: 2,
-            name: 'Guilde'
+            name: 'Guilde',
+            placeholder: 'Entrer le nom de la guilde'
         },
         {
             type: 3,
-            name: 'Compte'
+            name: 'Compte',
+            placeholder: 'Entrer l\'adresse email'
         },
         {
             type: 4,
-            name: 'Tous les personnage ayant un item'
+            name: 'Tous les personnage ayant un item',
+            placeholder: 'Entrer l\'id de l\'item'
         },
         {
             type: 5,
-            name: 'Tous les personnage ayant un haut fait'
+            name: 'Tous les personnage ayant un haut-fait',
+            placeholder: 'Entrer l\'id du haut-fait'
         }
     ];
-    $scope.selectedSearchMethod = 1;
+    $scope.selectedSearchMethod = $scope.searchMethods[0];
+    $scope.searchMotif = '';
+    $scope.searchResults = [];
 
     registerListener('worldChat', function(msg){
         var newChat = {
@@ -86,5 +93,20 @@ sras.controller('dashboard', function($scope){
 
         $scope.worldA2Msg = '';
         $scope.worldH2Msg = '';
+    }
+
+    $scope.search = function(motif){
+        var searchMsg = {
+            msg: 'search',
+            type: $scope.selectedSearchMethod.type,
+            motif: motif
+        };
+
+        sendMessage(searchMsg, 'SearchResponse', function(resp){
+            $scope.resultType = resp.resultType;
+            $scope.searchResults = resp.result;
+
+            $scope.$apply();
+        })
     }
 })
