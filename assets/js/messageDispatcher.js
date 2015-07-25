@@ -80,7 +80,10 @@ function sendMessage(msg, succesResponse, succesResponseHandler, failureResponse
   }
 
   var frame = JSON.stringify(msg);
-  webSocket.send(frame);
+  try{
+      webSocket.send(frame);
+  }
+  catch(err) {console.log(err);}
 }
 
 function registerListener(msg, callback) {

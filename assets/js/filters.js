@@ -59,3 +59,14 @@ sras.filter('class', function(){
         return allClasses[input][gender];
     }
 });
+
+sras.filter('duration', function(){
+    return function(input){
+        var hour = Math.trunc(input/3600);
+        var reste = input % 3600;
+        var minute = Math.trunc(reste/60);
+        var seconde = reste % 60;
+
+        return hour + 'h ' + minute + 'm ' + seconde + 's';
+    }
+})

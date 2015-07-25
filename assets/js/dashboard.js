@@ -1,4 +1,4 @@
-sras.controller('dashboard', function($scope){
+sras.controller('dashboard', function($scope, $interval){
     $scope.world = [];
     $scope.worldA2 = [];
     $scope.worldH2 = [];
@@ -109,4 +109,26 @@ sras.controller('dashboard', function($scope){
             $scope.$apply();
         })
     }
+
+    $scope.uptime = 0;
+    $scope.playersNum = 0;
+
+    var getServerInfoMsg = {
+        msg: 'getServerInfo'
+    };
+
+    setTimeout(function() {sendMessage(getServerInfoMsg, 'serverInfo', function(msg){
+        $scope.uptime = msg.uptime;
+        $scope.playersNum = msg.playersNum;
+
+        $scope.$apply();
+    }) }, 10);
+
+    var updateUptime = $interval(function(){
+        $scope.uptime += 1;
+    }, 1000);
+
+    $scope.$on('$destroy', function(){
+        $interval.cancel(updateUptime);
+    });
 })
