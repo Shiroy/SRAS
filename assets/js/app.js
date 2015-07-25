@@ -23,6 +23,10 @@ sras.config(function($stateProvider, $urlRouterProvider){
     .state('dashboard.map', {
         template: loadView('map'),
         controller: 'map'
+    })
+    .state('dashboard.player', {
+        template: loadView('player'),
+        controller: 'player'
     });
 });
 

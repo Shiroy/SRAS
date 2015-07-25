@@ -1,0 +1,67 @@
+div.row
+    h1 {{playerInfo.name}}
+div.row
+    div.col-lg-12
+        div.well
+            div.row
+                div.col-lg-6
+                    p <b>Compte :</b> MAIL@ERYLDOR.COM
+                    p <b>Liste des avertissement</b>
+                    div.well
+                        p 
+                            em Avertissement de Kazuma du 2015-07-21 14:34:45
+                        p Essai
+                    p <b>Membre du group :</b>
+                    ul
+                        li(ng-repeat="member in playerInfo.groupMember")
+                            a(ui-sref="") {{member.name}} ({{member.race | race:member.gender}}, {{member.class | class:member.gender}}, niveau {{member.level}})
+                    p(ng-if="playerInfo.groupMember.length < 2") Le joueur n'est pas dans un groupe
+                div.col-lg-6
+                    p <b>Niveau : </b> {{playerInfo.level}}
+                    p <b>Position : </b> Les Tarides du Nord
+                    p <b>Race : </b> {{playerInfo.race | race:playerInfo.gender}}
+                    p <b>Classe : </b> {{playerInfo.class | class:playerInfo.gender}}
+div.row
+    h2 Informations générales
+div.row
+    div.col-lg-12
+        div.well
+            div.row
+                div.col-lg-6
+                    p <b>Argent : </b> {{playerInfo.money | money}}
+                    p <b>Temps de jeu : </b> {{playerInfo.totaltime | duration}}
+                    p <b>Temps de jeu à ce niveau : </b> {{playerInfo.leveltime | duration}}  
+                div.col-lg-6
+                    p <b>Guilde : </b>
+                        a(ng-show="playerInfo.guild.id !== undefined") {{playerInfo.guild.name}}
+                        p(ng-hide="playerInfo.guild.id !== undefined") Le joueur n'est pas dans une guilde
+div.row
+    div.col-lg-12
+        button.btn.btn-default(ng-click='hideInventory = !hideInventory; $WowheadPower.refreshLinks();') {{hideInventory ? 'Afficher' : 'Cacher'}} l'inventaire
+        div.row(collapse='hideInventory')
+            div.col-lg-12
+                div.well
+                    div.row(ng-repeat="item in playerInfo.inventory")
+                        div.col-md-8
+                            a(href="http://fr.wowhead.com/item={{item.id}}" ng-click="") {{item.name}}
+                            span(ng-hide="item.count < 2") &nbsp;(x{{item.count}})
+                            
+div.row
+    div.col-lg-12        
+        button.btn.btn-default(ng-click='hideHistory = !hideHistory') {{hideHistory ? 'Afficher' : 'Cacher'}} l'historique
+        div.row(collapse='hideHistory')
+            div.col-lg-12
+                div.well
+div.row
+    div.col-lg-12
+        button.btn.btn-default(ng-click='hideSkills = !hideSkills') {{hideSkills ? 'Afficher' : 'Cacher'}} les compétences
+        div.row(collapse='hideSkills')
+            div.col-lg-12
+                div.well
+                    div.row(ng-repeat="skill in playerInfo.skills")
+                        div.col-md-4
+                            a(href="#" rel="skill={{skill.id}}") {{skill.name}}
+                        div.col-md-4
+                            progressbar(value="skill.value" max="skill.max == 0 ? 1 : skill.max") {{skill.value}} / {{skill.max}}
+                        div.col-md-4
+                

@@ -25,7 +25,7 @@ sras.controller('connect', function($scope, $state){
       if(msg.error == 'ok'){
         accountId = msg.account;
         accountEmail = msg.email;
-        $state.go('dashboard');
+        $state.go('dashboard.player');
       }
       else {
         $scope.msg = "Authentication..." + msg.error;

@@ -122,7 +122,7 @@ sras.controller('dashboard', function($scope, $interval){
         $scope.playersNum = msg.playersNum;
 
         $scope.$apply();
-    }) }, 10);
+    }) }, 100);
 
     var updateUptime = $interval(function(){
         $scope.uptime += 1;

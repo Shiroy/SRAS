@@ -69,4 +69,22 @@ sras.filter('duration', function(){
 
         return hour + 'h ' + minute + 'm ' + seconde + 's';
     }
+});
+
+sras.filter('money', function(){
+    return function(input){
+        var gold = Math.trunc(input/(100*100));
+        var reste = input % (100*100);
+        var argent = Math.trunc(reste / 100);
+        var cuivre = reste % 100;
+
+        return gold + ' or ' + argent + ' argent ' + cuivre + ' cuivre';
+    }
+});
+
+sras.filter('wowheadSkill', function()
+{
+    return function(input, id){
+        return '<a href="#" rel="skill=' + id + '">' + input + '</a>'
+    }
 })
