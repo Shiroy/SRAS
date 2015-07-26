@@ -41,11 +41,30 @@ div.row
         div.row(collapse='hideInventory')
             div.col-lg-12
                 div.well
-                    div.row(ng-repeat="item in playerInfo.inventory")
-                        div.col-md-8
-                            a(href="http://fr.wowhead.com/item={{item.id}}" ng-click="") {{item.name}}
-                            span(ng-hide="item.count < 2") &nbsp;(x{{item.count}})
+                    table.table.table-striped
+                        each variable,disp in {"Tête":"tete", "Cou":"cou", "Epaules":"epaule", "Chemise":"chemise", "Torse":"torse", "Ceinture":"ceinture", "Jambe":"jambe", "Pied":"pied", "Poignet":"poignet", "Main":"main", "Anneau 1":"anneau1", "Anneau 2":"anneau2", "Bijou 1":"bijou1", "Bijou 2":"bijou2", "Dos":"dos", "Arme principale":"arme1", "Arme secondaire":"arme2", "Arme à distance":"armeadistance", "Tabard":"tabard"}
+                            tr
+                                td=disp + ': '
+                                td
+                                    a(href="#" rel="domain=fr,item={{" + variable + ".id}}") {{#{variable}.name ? #{variable}.name : 'Rien'}}
+                    p Sac à dos : <button ng-click="cacherSacADos = !cacherSacADos" class="btn btn-default">{{cacherSacADos ? 'Afficher' : 'Cacher'}}</button>
+                    div(collapse="cacherSacADos")
+                        p(ng-repeat="item in sacADos" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}"> {{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
+                    div(ng-repeat="s in sac")
+                        a(href="#" rel="domain=fr,item={{s.item.id}}") {{s.item ? s.item.name : "Pas de sac"}}
+                        button(ng-disabled="!s.item" ng-click="s.hide = !s.hide").btn.btn-default {{s.hide ? "Ouvrir" : "Fermer"}}
+                        div(collapse="s.hide")
+                            p(ng-repeat="item in s.contenue" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
                             
+                    h3 Banque du joueur
+                    p <button class="btn btn-default" ng-click="hideBank = !hideBank">{{hideBank ? "Afficher" : "Cacher"}} la banque</button>
+                    div(collapse="hideBank")
+                        p(ng-repeat="item in bank" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
+                    div(ng-repeat="s in bankSac")
+                        a(href="#" rel="domain=fr,item={{s.item.id}}") {{s.item ? s.item.name : "Pas de sac"}}
+                        button(ng-disabled="!s.item" ng-click="s.hide = !s.hide").btn.btn-default {{s.hide ? "Ouvrir" : "Fermer"}}
+                        div(collapse="s.hide")
+                            p(ng-repeat="item in s.contenue" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
 div.row
     div.col-lg-12        
         button.btn.btn-default(ng-click='hideHistory = !hideHistory') {{hideHistory ? 'Afficher' : 'Cacher'}} l'historique

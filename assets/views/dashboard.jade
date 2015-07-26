@@ -34,7 +34,7 @@ div.container-fluid
                   b Résultat
                 ul.nav.nav-pills.nav-stacked(ng-switch="resultType")
                   li(ng-switch-when="characters" ng-repeat="r in searchResults")
-                    a(ui-sref=".player") {{r.name}} &nbsp;&nbsp;
+                    a(ui-sref=".player({guid:{{r.guid}}})") {{r.name}} &nbsp;&nbsp;
                       span.text-primary ({{r.race |race:r.gender }}, {{r.class | class:r.gender}}, Niveau {{r.level}})
                   li(ng-switch-default)
                 hr

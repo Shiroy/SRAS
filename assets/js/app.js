@@ -26,7 +26,8 @@ sras.config(function($stateProvider, $urlRouterProvider){
     })
     .state('dashboard.player', {
         template: loadView('player'),
-        controller: 'player'
+        controller: 'player',
+        params: {guid: 0}
     });
 });
 
