@@ -13,7 +13,6 @@ app.on('ready', function(){
   //Create the main window
   mainWindow = new BrowserWindow({width: 800, heigth: 600, title: 'SRAS - Système de recher et d\'aide à la surveillance'});
   mainWindow.maximize();
-  mainWindow.openDevTools();
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
   mainWindow.on('closed', function() {
