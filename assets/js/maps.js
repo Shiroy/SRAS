@@ -21,7 +21,7 @@
 var fs = require('fs');
 var async = require('async');
 
-sras.controller('map', function($scope, $interval, $modal){
+sras.controller('map', ['$scope', '$interval', '$modal', function($scope, $interval, $modal){
     var canvas = document.getElementById('view');
     var ctx = canvas.getContext('2d');
     var tiles;
@@ -49,23 +49,23 @@ sras.controller('map', function($scope, $interval, $modal){
     var followedPlayer = '';
 
     function loadMaps(){
-        fs.readdir('assets/maps', function(err, files){
+        fs.readdir(__dirname + '/assets/maps', function(err, files){
             if(err){
                 console.log(err);
                 return;
             }
 
             async.map(files, function(f, callback){
-                fs.stat('assets/maps/' + f, function(err, stat){
+                fs.stat(__dirname + '/assets/maps/' + f, function(err, stat){
 
                     if(err)
                         callback(err, null);
 
                     if(stat.isDirectory()){
-                        fs.exists('assets/maps/' + f + '/map.json', function(ok){
+                        fs.exists(__dirname + '/assets/maps/' + f + '/map.json', function(ok){
                             if(!ok)
                                 callback(null, 'ok');
-                            fs.readFile('assets/maps/' + f + '/map.json', function(err, data){
+                            fs.readFile(__dirname + '/assets/maps/' + f + '/map.json', function(err, data){
                                 if(err)
                                     callback(err);
                                 var obj = JSON.parse(data);
@@ -93,7 +93,7 @@ sras.controller('map', function($scope, $interval, $modal){
     function initMapInfo(map, callback){
         var minX=null, maxX=null, minY=null, maxY=null;
         var map_parser = /map(\d+)_(\d+).png/;
-        fs.readdir(map.path, function(err, files){
+        fs.readdir(__dirname + '/' + map.path, function(err, files){
 
             files.forEach(function(f){
                 if((chunk = map_parser.exec(f)) !== null){
@@ -339,4 +339,4 @@ sras.controller('map', function($scope, $interval, $modal){
     }
 
     //load();
-})
+}])

@@ -1,4 +1,4 @@
-sras.controller('dashboard', function($scope, $interval){
+sras.controller('dashboard', ['$scope', '$interval', function($scope, $interval){
     $scope.world = [];
     $scope.worldA2 = [];
     $scope.worldH2 = [];
@@ -131,4 +131,4 @@ sras.controller('dashboard', function($scope, $interval){
     $scope.$on('$destroy', function(){
         $interval.cancel(updateUptime);
     });
-})
+}])

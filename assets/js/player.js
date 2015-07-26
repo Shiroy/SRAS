@@ -1,4 +1,4 @@
-sras.controller('player', function($scope, $stateParams){
+sras.controller('player', ['$scope', '$stateParams', function($scope, $stateParams){
     $scope.hideInventory = true;
     $scope.hideHistory = true;
     $scope.hideSkills = true;
@@ -180,4 +180,4 @@ sras.controller('player', function($scope, $stateParams){
         $scope.$apply();
         $WowheadPower.refreshLinks();
     });
-});
+}]);

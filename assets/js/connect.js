@@ -1,4 +1,4 @@
-sras.controller('connect', function($scope, $state){
+sras.controller('connect', ['$scope', '$state', function($scope, $state){
   $scope.msg = 'Connecting...';
 
   if(webSocket != null){
@@ -38,4 +38,4 @@ sras.controller('connect', function($scope, $state){
   webSocket.onmessage = function(evt){
     dispatchMessage(JSON.parse(evt.data));
   }
-})
+}])

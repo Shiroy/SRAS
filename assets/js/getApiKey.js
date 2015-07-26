@@ -1,4 +1,4 @@
-sras.controller('getApiKey', function($state, $scope){
+sras.controller('getApiKey', ['$state', '$scope', function($state, $scope){
   $scope.apiKey = config.apiKey === undefined ? '' : config.apiKey;
 
   $scope.ok = function(){
@@ -9,4 +9,4 @@ sras.controller('getApiKey', function($state, $scope){
 
     $state.go('connect');
   }
-})
+}]);

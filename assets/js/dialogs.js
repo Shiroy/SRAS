@@ -1,4 +1,4 @@
-sras.controller('getTextDialog', function($scope, $modalInstance, question, title){
+sras.controller('getTextDialog', ['$scope', '$modalInstance', 'question', 'title', function($scope, $modalInstance, question, title){
     $scope.question = question;
     $scope.title = title;
 
@@ -11,7 +11,7 @@ sras.controller('getTextDialog', function($scope, $modalInstance, question, titl
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
 	}
-});
+}]);
 
 function openGetTextDialog(modal, title, question){
     return modal.open({

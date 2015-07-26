@@ -1,6 +1,6 @@
 var sras = angular.module('sras', ['ui.router', 'ui.bootstrap']);
 
-sras.config(function($stateProvider, $urlRouterProvider){
+sras.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -29,7 +29,7 @@ sras.config(function($stateProvider, $urlRouterProvider){
         controller: 'player',
         params: {guid: 0}
     });
-});
+}]);
 
 sras.directive('ngEnter', function () {
     return function (scope, element, attrs) {

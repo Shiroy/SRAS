@@ -15,6 +15,12 @@ function saveConfig(){
 }
 
 function loadConfig(){
-    var data = fs.readFileSync('config.json', {encoding: 'utf8'});
-    config = JSON.parse(data);
+    try {
+        var data = fs.readFileSync('config.json', {encoding: 'utf8'});
+        config = JSON.parse(data);
+    } catch (e) {
+
+    } finally {
+
+    }    
 }
