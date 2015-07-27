@@ -1,4 +1,5 @@
 var webSocket = null; //la web socket de communication
+var messageQueue = [];
 
 function dispatchMessage(msg){
   if(msg.msg === undefined)
@@ -81,7 +82,7 @@ function sendMessage(msg, succesResponse, succesResponseHandler, failureResponse
 
   var frame = JSON.stringify(msg);
   try{
-      webSocket.send(frame);
+    messageQueue.push(frame);
   }
   catch(err) {console.log(err);}
 }
@@ -99,3 +100,17 @@ function registerListener(msg, callback) {
       wantedMsg[msg] = [];
     wantedMsg[msg].push(msgWait);
 }
+
+window.setInterval(function(){
+  if(webSocket == null)
+    return;
+  if(webSocket.readyState != 1)
+    return;
+
+  if(messageQueue.length > 0)
+  {
+    var frame = messageQueue[0];
+    webSocket.send(frame);
+    messageQueue.splice(0, 1);
+  }
+}, 500);
