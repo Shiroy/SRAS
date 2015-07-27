@@ -66,7 +66,7 @@ sras.controller('dashboard', ['$scope', '$interval', function($scope, $interval)
         $scope.characters = msg.characters;
         if($scope.characters[0] !== undefined)
         {
-            $scope.usedChar = msg.characters[0].guid.toString();
+            $scope.usedChar = msg.characters[0];
             $scope.changeCharacter();
         }
 
@@ -76,7 +76,8 @@ sras.controller('dashboard', ['$scope', '$interval', function($scope, $interval)
     $scope.changeCharacter = function(){
         var characterChangeMsg = {
             msg: 'selectedCharacterChange',
-            guid: Number($scope.usedChar)
+            guid: $scope.usedChar.guid,
+            name: $scope.usedChar.name
         }
 
         sendMessage(characterChangeMsg);

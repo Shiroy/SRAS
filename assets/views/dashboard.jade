@@ -85,8 +85,7 @@ div.container-fluid
                 textarea
               button.btn.btn-default Passer une annonce
             b Personnage à utiliser pour les chats
-            select.form-control(ng-model='usedChar' ng-change='changeCharacter()')
-                option(ng-repeat='c in characters' value='{{c.guid}}') {{c.name}}
+            select.form-control(ng-model='usedChar' ng-change='changeCharacter()' ng-options='c.name for c in characters')
       div.row
         p Mes conversations
         div.col-lg-12
