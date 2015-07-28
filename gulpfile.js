@@ -68,12 +68,26 @@ gulp.task('index', function(){
     return stream;
 });
 
-gulp.task('node_modules', function(){
-    var stream = gulp.src(['node_modules/async', 'node_modules/angular-ui-router', 'node_modules/jade'])
-    .pipe(gulp.dest('dist/sras/node_modules'));
+gulp.task('async', function(){
+    var stream = gulp.src(['node_modules/async/**/*'])
+    .pipe(gulp.dest('dist/sras/node_modules/async'));
 
     return stream;
-})
+});
+
+gulp.task('angular-ui-router', function(){
+    var stream = gulp.src('node_modules/angular-ui-router/**/*'])
+    .pipe(gulp.dest('dist/sras/node_modules/angular-ui-router'));
+
+    return stream;
+});
+
+gulp.task('jade', function(){
+    var stream = gulp.src(['node_modules/jade/**/*'])
+    .pipe(gulp.dest('dist/sras/node_modules/jade'));
+
+    return stream;
+});
 
 gulp.task('main', function(){
     var stream = gulp.src(['main.js', 'package.json'])
@@ -82,7 +96,7 @@ gulp.task('main', function(){
     return stream;
 })
 
-gulp.task("default", ['js', 'angular', 'maps', 'views', 'css', 'index', 'node_modules', 'main'], function(cb){
+gulp.task("default", ['js', 'angular', 'maps', 'views', 'css', 'index', 'main', 'async', 'jade', 'angular-ui-router'], function(cb){
     var opts = {
         dir: 'dist/sras',
         name: 'sras',
