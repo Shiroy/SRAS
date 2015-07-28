@@ -1,4 +1,4 @@
-sras.controller('dashboard', ['$scope', '$interval', function($scope, $interval){
+sras.controller('dashboard', ['$scope', '$interval', '$modal', function($scope, $interval, $modal){
     $scope.world = [];
     $scope.worldA2 = [];
     $scope.worldH2 = [];
@@ -132,4 +132,16 @@ sras.controller('dashboard', ['$scope', '$interval', function($scope, $interval)
     $scope.$on('$destroy', function(){
         $interval.cancel(updateUptime);
     });
+
+    $scope.annonceServeur = function() {
+        var dialogAnnonce = openGetTextDialog($modal, 'Annonce serveur', 'Entrez le texte de l\'annonce');
+        dialogAnnonce.result.then(function(annonce){
+            var msg = {
+                msg: "serverAnnounce",
+                text: annonce
+            };
+
+            sendMessage(msg);
+        })
+    }
 }])

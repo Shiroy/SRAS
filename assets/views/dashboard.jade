@@ -85,10 +85,7 @@ div.container-fluid
             p Nombre de joueur : {{playersNum}}
             p En ligne depuis : {{uptime | duration}}
             div
-              p Passer un annonce
-              p 
-                textarea
-              button.btn.btn-default Passer une annonce
+              button.btn.btn-default(ng-click="annonceServeur()") Passer une annonce
             b Personnage à utiliser pour les chats
             select.form-control(ng-model='usedChar' ng-change='changeCharacter()' ng-options='c.name for c in characters')
       div.row
