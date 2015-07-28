@@ -13,6 +13,7 @@ gulp.task('js', function(){
         'globals.js',
         'app.js',
         'boot.js',
+        'fatal.js',
         'views.js',
         'dialogs.js',
         'getApiKey.js',
