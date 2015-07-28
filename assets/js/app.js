@@ -28,6 +28,11 @@ sras.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
         template: loadView('player'),
         controller: 'player',
         params: {guid: 0}
+    })
+    .state('fatal', {
+        template: loadView('fatal'),
+        controller: 'fatal',
+        params: {msg: 'Une erreur fatale inconnue c\'est produite'}
     });
 }]);
 

@@ -8,8 +8,11 @@ sras.controller('connect', ['$scope', '$state', function($scope, $state){
   webSocket = new WebSocket('ws://62.210.100.11:21194/');
 
   webSocket.onerror = function(error) {
-    $scope.msg = error;
-    $scope.$apply();
+    $state.go('fatal', {msg: 'Impossible de se connecter'});
+  }
+
+  webSocket.onclose = function() {
+    $state.go('fatal', {msg: 'La connexion avec le serveur de jeu a été interrompue'});
   }
 
   webSocket.onopen = function(){
@@ -28,10 +31,8 @@ sras.controller('connect', ['$scope', '$state', function($scope, $state){
         $state.go('dashboard');
       }
       else {
-        $scope.msg = "Authentication..." + msg.error;
+        $state.go('fatal', {msg: 'Votre clé n\'est pas reconnue : ' + msg.error});
       }
-
-      $scope.$apply();
     });
   }
 
