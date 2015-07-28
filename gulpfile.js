@@ -76,7 +76,7 @@ gulp.task('async', function(){
 });
 
 gulp.task('angular-ui-router', function(){
-    var stream = gulp.src('node_modules/angular-ui-router/**/*'])
+    var stream = gulp.src(['node_modules/angular-ui-router/**/*'])
     .pipe(gulp.dest('dist/sras/node_modules/angular-ui-router'));
 
     return stream;
