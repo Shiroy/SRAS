@@ -29,6 +29,9 @@ sras.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
         controller: 'player',
         params: {guid: 0}
     })
+    .state('dashboard.guild', {
+        template: loadView('guild')
+    })
     .state('fatal', {
         template: loadView('fatal'),
         controller: 'fatal',
