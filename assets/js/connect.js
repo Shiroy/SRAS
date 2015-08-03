@@ -28,7 +28,7 @@ sras.controller('connect', ['$scope', '$state', function($scope, $state){
       if(msg.error == 'ok'){
         accountId = msg.account;
         accountEmail = msg.email;
-        $state.go('dashboard.guild');
+        $state.go('dashboard');
       }
       else {
         $state.go('fatal', {msg: 'Votre clé n\'est pas reconnue : ' + msg.error});

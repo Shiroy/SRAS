@@ -51,7 +51,7 @@ div.row
                             p <a href="" ng-click="m.hide = !m.hide">{{m.name}}</a>
                             div(style="margin-left: 30px;" collapse="m.hide")
                                 p 
-                                    a.btn.btn-success(href="") Fiche personnage
+                                    a.btn.btn-success(href="" ui-sref="dashboard.player({guid:{{m.guid}}})") Fiche personnage
                                 p {{m.class | class:0}} de niveau {{m.level}}
                                 p <b>Rang : </b> {{m.rank}}
                                 p <b>Note publique: </b> {{m.publicNote}}

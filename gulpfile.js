@@ -23,7 +23,8 @@ gulp.task('js', function(){
         'maps.js',
         'filters.js',
         'player.js',
-        'guild.js'
+        'guild.js',
+        'account.js'
     ]))
     .pipe(concat('sras.js'))
     .pipe(uglify())

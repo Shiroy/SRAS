@@ -5,7 +5,8 @@ div.row
         div.well
             div.row
                 div.col-lg-6
-                    p <b>Compte :</b> MAIL@ERYLDOR.COM
+                    p(ng-if="playerInfo.account")
+                        a(href="" ui-sref="dashboard.account({id:{{playerInfo.account.id}}})") {{playerInfo.account.email}}
                     p <b>Liste des avertissement</b>
                     div.well
                         p 
@@ -33,7 +34,7 @@ div.row
                     p <b>Temps de jeu à ce niveau : </b> {{playerInfo.leveltime | duration}}  
                 div.col-lg-6
                     p <b>Guilde : </b>
-                        a(ng-show="playerInfo.guild.id !== undefined") {{playerInfo.guild.name}}
+                        a( href="" ui-sref="dashboard.guild({id:{{player.guild.id}}})" ng-if="playerInfo.guild.id !== undefined") {{playerInfo.guild.name}}
                         p(ng-hide="playerInfo.guild.id !== undefined") Le joueur n'est pas dans une guilde
 div.row
     div.col-lg-12

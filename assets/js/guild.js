@@ -1,8 +1,11 @@
-sras.controller('guild', ['$scope', function($scope){
+sras.controller('guild', ['$scope', '$stateParams', function($scope, $stateParams){
+
+    if($stateParams.id === undefined || $stateParams.id <= 0)
+        return;
 
     var guildMessage = {
         msg: 'guildInfo',
-        guildId: 2
+        guildId: $stateParams.id
     };
 
     $scope.guild = null;
