@@ -1,0 +1,42 @@
+div.row
+    h1 {{account.email}}
+    h4 <em>Compte Battle.net</em>
+div.row
+    div.well
+        div.row
+            div.col-lg-6
+                p <b>Date de création : </b> {{account.join_date}}
+                p <b>Dernière connexion : </b> {{account.last_login}}
+                p <b>Adresse IP : </b> {{account.last_ip}}
+            div.col-lg-6
+                p <b>Autres comptes avec la même IP</b>
+                ul.nav.nav-pills.nav-stacked
+                    li(ng-repeat="acc in account.same_ip_account")
+                        a(href="#" ui-sref="dashboard.account({id:{{acc.id}}})") {{acc.email}} &nbsp;&nbsp;<span class="text-primary">(dernière connexion le {{acc.last_login}})</span>
+div.row
+    div.well
+        div.row
+            div.col-lg-12
+                h3 Liste des bannissement
+                div.row(ng-repeat="b in account.bans")                
+                    div.well
+                        div.col-lg-12
+                            p <b>Banni le :</b> {{b.ban_date}} 
+                            p <b>Débannissement prévu le : </b> {{b.unban_date}}
+                            p <b>Banni par :</b> {{b.banned_by}}
+                            p <b>Raison :</b> {{b.reason}}
+                            p
+                                span(ng-show="b.active").text-success Bannissement actif
+                                span(ng-hide="b.active").text-danger Bannissement inactif
+div.row
+    h2 Liste des comptes en jeu
+div.row(ng-repeat="compte in account.accounts")
+    div.well
+        div.row
+            div.col-lg-12
+                h4 Compte {{compte.index}}
+        div.row
+            div.col-lg-12
+                ul.nav.nav-pills.nav-stacked
+                    li(ng-repeat="c in compte.characters")
+                        a(href="" ui-sref="dashboard.player({guid:{{c.guid}}})") {{c.name}} &nbsp;&nbsp;<span class="text-primary">({{c.race | race:c.gender}}, {{c.class | class:c.gender}} de niveau {{c.level}})</span>

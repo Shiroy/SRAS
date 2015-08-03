@@ -37,9 +37,9 @@ div.container-fluid
                     a(ui-sref=".player({guid:{{r.guid}}})") {{r.name}} &nbsp;&nbsp;
                       span.text-primary ({{r.race |race:r.gender }}, {{r.class | class:r.gender}}, Niveau {{r.level}})
                   li(ng-switch-when="guild" ng-repeat="r in searchResults")
-                    a(href="") {{r.name}}
+                    a(href="" ui-sref="dashboard.guild({id:{{r.id}}})") {{r.name}}
                   li(ng-switch-when="account" ng-repeat="r in searchResults")
-                    a(href="") {{r.email}} &nbsp;&nbsp;
+                    a(href="" ui-sref="dashboard.account({id:{{r.id}}})") {{r.email}} &nbsp;&nbsp;
                       span.text-primary (dernière connexion le {{r.last_login}})
                   li(ng-switch-default)
                 hr

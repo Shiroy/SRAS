@@ -1,0 +1,81 @@
+div.row
+    h1 {{guild.name}}
+    h4 <em>Guilde</em>
+div.row
+    div.well
+        div.row
+            div.col-lg-6
+                p <b>Chef de guilde : </b>
+                    a(ui-sref="dashboard.player({guid:{{guild.leader.guid ? guild.leader.guid : 0}}})") {{guild.leader.name}}
+                p <b>Message du jour : </b> {{guild.motd}}
+                p <b>Date de création : </b> {{guild.createdDate | date:"dd/MM/yyyy HH:mm:ss"}}
+            div.col-lg-6
+                p {{guild.memberCount}} membres
+                p <b>Info de guilde : </b> {{guild.info}}
+div.row
+    h2 Informations détaillées
+div.row
+    div.well
+        div.row
+            div.col-lg-6
+                div.row
+                    h4 Grades
+                div.row(ng-repeat="r in guild.ranks")
+                    div.row
+                        div.col-lg-12
+                            button.btn.btn-link(ng-click="r.hide = !r.hide") {{r.name}}
+                    div.row
+                        div.col-lg-12(collapse="r.hide")
+                            p <b>Retrait quotidien du coffre : </b> {{r.moneyPerDay | money}}
+                            p Droits :
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 1)") Voir le chat de guilde
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 2)") Ecrire dans le chat de guilde
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 4)") Voir le chat officier
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 8)") Ecrire dans le chat officier
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 16)") Inviter à rejoindre la guilde
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 32)") Renvoyer de la guilde
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 128)") Grader un membre
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 256)") Dé-grader un membre
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 512)") Modifier le message du jour
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 1024)") Editer les note des joueurs
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 2048)") Voir les notes d'officier
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 4096)") Editer les notes d'officier
+                                p(style="margin-left: 30px" ng-show="and(r.rights, 8192)") Modifier les informations de guilde
+                            
+            div.col-lg-6
+                div.row
+                    h4 Membres
+                div.row
+                    div.col-lg-12
+                        div(ng-repeat="m in guild.members")
+                            p <a href="" ng-click="m.hide = !m.hide">{{m.name}}</a>
+                            div(style="margin-left: 30px;" collapse="m.hide")
+                                p 
+                                    a.btn.btn-success(href="" ui-sref="dashboard.player({guid:{{m.guid}}})") Fiche personnage
+                                p {{m.class | class:0}} de niveau {{m.level}}
+                                p <b>Rang : </b> {{m.rank}}
+                                p <b>Note publique: </b> {{m.publicNote}}
+                                p <b>Note d'officier : </b> {{m.officierNote}}
+                                p <b>Activité : </b> {{m.weekActivity}} / {{m.totalActivity}}
+                                p <b>Réputation : </b> {{m.weekReputation}} / {{m.totalReputation}}
+                                
+div.row
+    h2 Banque de guilde
+div.row
+    div.well
+        div.row
+            div.col-lg-12
+                p Argent dans le coffre : {{guild.bankMoney | money}}
+        div.row
+            div.col-lg-12
+                tabset
+                    tab(ng-repeat="t in guild.bankTabs" heading="t.name")
+                        p(ng-repeat="item in t.items") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}} <span ng-show="item.count > 1">(x{{item.count}})</span></a>
+                    tab(heading="Historique")
+div.row
+    h2 Haut-fait de guilde
+div.row
+    div.well
+        div.row
+            div.col-lg-12
+                p(a in guild.achievements) <a href="#" rel="domain=fr,achievement={{a.id}}">{{a.name}}</a> le {{a.date | date:"dd/MM/yyyy HH:mm:ss"}}
