@@ -106,7 +106,7 @@ gulp.task("default", ['js', 'angular', 'maps', 'views', 'css', 'index', 'main', 
         name: 'sras',
         platform: 'win32',
         arch: 'x64',
-        version: '0.30.1',
+        version: '0.30.2',
         asar: true,
         overwrite: true
     }
