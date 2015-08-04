@@ -13,6 +13,7 @@ gulp.task('js', function(){
         'globals.js',
         'app.js',
         'boot.js',
+        'updater.js',
         'fatal.js',
         'views.js',
         'dialogs.js',
@@ -106,15 +107,15 @@ gulp.task("default", ['js', 'angular', 'maps', 'views', 'css', 'index', 'main', 
         platform: 'win32',
         arch: 'x64',
         version: '0.30.1',
-        asar: true
+        asar: true,
+        overwrite: true
     }
 
     packager(opts, function(err, appPath){
         if(err)
             cb(err);
         else {
-            console.log(appPath);
-            cb(null);
+
         }
     })
 });
