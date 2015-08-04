@@ -10,4 +10,4 @@ cp sras-win64.zip /var/www/html
 
 cp sras-win32-ia32/resources/app.asar /var/www/html
 
-date +%s >> /var/www/html/app.time
+date +%s > /var/www/html/app.time

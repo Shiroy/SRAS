@@ -105,7 +105,7 @@ gulp.task("default", ['js', 'angular', 'maps', 'views', 'css', 'index', 'main', 
         dir: 'dist/sras',
         name: 'sras',
         platform: 'win32',
-        arch: 'all',
+        arch: 'x64',
         version: '0.30.1',
         asar: true,
         overwrite: true
@@ -115,7 +115,7 @@ gulp.task("default", ['js', 'angular', 'maps', 'views', 'css', 'index', 'main', 
         if(err)
             cb(err);
         else {
-
+            cb(null);
         }
     })
 });
