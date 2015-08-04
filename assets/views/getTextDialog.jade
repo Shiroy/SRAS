@@ -3,7 +3,7 @@ div.modal-header
 div.modal-body
 	p {{question}}
 	p
-		input(type="text" ng-model="response")
+		input(type="text" ng-model="response" autofocus)
 div.modal-footer
 	button.btn.btn-success(ng-click="ok()") Valider
 	button.btn.btn-danger(ng-click="cancel()") Annuler
