@@ -1,5 +1,5 @@
 var http = require("http");
-var fs = require('fs.extra');
+var fs = require('fs');
 //var app = require("app");
 
 var options = {
@@ -8,7 +8,7 @@ var options = {
     method: 'GET'
 };
 
-sras.controller('updater', ['$scope', '$http', function($scope, $http){
+sras.controller('updater', ['$scope', '$http', '$state', function($scope, $http, $state){
     $scope.msg = "Recherche de mise à jour...";
 
     $scope.total = 1;
@@ -16,7 +16,7 @@ sras.controller('updater', ['$scope', '$http', function($scope, $http){
 
     $http.get('http://' + referenceServer + '/app.time').
     then(function(response) {
-        if(config.lastUpdate === undefined || lastUpdate < response.data)
+        if(config.lastUpdate === undefined || config.lastUpdate < response.data)
             downloadUpdate();
         else {
             $state.go('getApiKey');
