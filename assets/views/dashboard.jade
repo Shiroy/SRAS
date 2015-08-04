@@ -90,18 +90,19 @@ div.container-fluid
             select.form-control(ng-model='usedChar' ng-change='changeCharacter()' ng-options='c.name for c in characters')
       div.row
         p Mes conversations
-        div.col-lg-12
-          div.well
-            p Truc &nbsp;&nbsp;
-              button.btn-danger Fermer
+        div.row(ng-repeat="c in conversations" receiver="c" ng-controller="whisper")
+          div.col-lg-12
             div.well
-              p 
-                b Truc: &nbsp;&nbsp;
-                span Bonsoir
-              p 
-                b Eryldor: &nbsp;&nbsp;
-                span Bonsoir
-              p
-                input.form-control(type="text")
+              p {{receiver}} &nbsp;&nbsp;
+                button.btn-danger(ng-click="closeConversation(c)") Fermer
+              div.well
+                p(ng-repeat="m in messages")
+                  b {{m.pseudo}}: &nbsp;&nbsp;
+                  span {{m.content}}
+                p
+                  input.form-control(type="text" ng-model="msg" ng-enter="whisper(msg)")
+        div.row
+          div.col-lg-12
+            button.btn.btn-primary.btn-block(ng-click="newConversation()") Nouvelle conversation
                 
           

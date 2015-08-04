@@ -7,6 +7,8 @@ sras.controller('dashboard', ['$scope', '$interval', '$modal', function($scope, 
     $scope.worldA2Msg = '';
     $scope.worldH2Msg = '';
 
+    $scope.conversations = [];
+
     $scope.usedChar = 0;
 
     $scope.searchMethods = [
@@ -143,5 +145,16 @@ sras.controller('dashboard', ['$scope', '$interval', '$modal', function($scope, 
 
             sendMessage(msg);
         })
+    }
+
+    $scope.newConversation = function() {
+        var textDialog = openGetTextDialog($modal, 'Nouvelle conversation', 'Entrer le nom du destinataire : ');
+        textDialog.result.then(function(receiver){
+            $scope.conversations.push(receiver);
+        })
+    }
+
+    $scope.closeConversation = function(c) {
+        $scope.conversations.splice($scope.conversations.indexOf(c), 1);
     }
 }])

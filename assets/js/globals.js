@@ -1,10 +1,11 @@
-var fs = require('fs');
+var fs = require('fs.extra');
 
 var config  = {};
 
 var webSocket = null; //la web socket de communication
 var accountId = null;
 var accountEmail = null;
+var referenceServer = '62.210.100.11';
 
 function saveConfig(){
     var configContent = JSON.stringify(config);
@@ -22,5 +23,5 @@ function loadConfig(){
 
     } finally {
 
-    }    
+    }
 }
