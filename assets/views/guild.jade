@@ -6,7 +6,7 @@ div.row
         div.row
             div.col-lg-6
                 p <b>Chef de guilde : </b>
-                    a(ui-sref="dashboard.player({guid:{{guild.leader.guid ? guild.leader.guid : 0}}})") {{guild.leader.name}}
+                    a(href="" ng-if="guild.leader" ui-sref="dashboard.player({guid:{{guild.leader.guid ? guild.leader.guid : 0}}})") {{guild.leader.name}}
                 p <b>Message du jour : </b> {{guild.motd}}
                 p <b>Date de création : </b> {{guild.createdDate | date:"dd/MM/yyyy HH:mm:ss"}}
             div.col-lg-6
