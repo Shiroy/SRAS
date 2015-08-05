@@ -6,6 +6,7 @@ sras.controller('dashboard', ['$scope', '$interval', '$modal', function($scope, 
     $scope.characters = [];
     $scope.worldA2Msg = '';
     $scope.worldH2Msg = '';
+    $scope.twoWorld = true;
 
     $scope.conversations = [];
 
@@ -56,6 +57,7 @@ sras.controller('dashboard', ['$scope', '$interval', '$modal', function($scope, 
         else {
             $scope.worldH2.push(newChat);
         }
+
 
         $scope.$apply();
     })

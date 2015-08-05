@@ -46,15 +46,15 @@ div.container-fluid
                 a.btn.btn-primary(ui-sref=".map") Afficher la carte dynamique
             
     div.col-lg-6
-      div.row
+      div.row(ng-show="twoWorld")
         div.col-lg-6
           div.well
             div.row
               div.col-lg-12
                 b.text-info World Alliance &nbsp;
                 label
-                  input(type="checkbox") 
-                  span Fusionner avec le world horde
+                  input(type="checkbox" ng-model="twoWorld")
+                  span Afficher deux worlds
             div.row(style="max-height: 500px; overflow-y: auto;")
               div.col-lg-12
                 p(ng-repeat="msg in worldA2")
@@ -74,6 +74,22 @@ div.container-fluid
                     span {{msg.message}}
                   p
                     input.form-control(type='text' placeholder="Votre réponse" ng-model="worldH2Msg" ng-enter="sendToWorld(false, worldH2Msg)")
+      div.row(ng-hide="twoWorld")
+        div.col-lg-12
+          div.well
+            div.row
+              div.col-lg-12
+                b World fusionné &nbsp;
+                label
+                  input(type="checkbox" ng-model="twoWorld") 
+                  span Afficher deux worlds
+            div.row
+              div.col-lg-12
+                p(ng-repeat="msg in world")
+                  b <span class="{{msg.faction == 'alliance' ? 'text-info' : 'text-danger'}}">{{msg.player}}</span>:&nbsp; 
+                  span {{msg.message}}
+                p
+                  input.form-control(type='text' placeholder="Votre réponse" ng-model="worldMsg" ng-enter="sendToWorld(true, worldMsg)")
       div.row
         div.col-lg-12
           div(ui-view="")
