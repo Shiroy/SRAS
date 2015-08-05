@@ -114,18 +114,40 @@ sras.controller('dashboard', ['$scope', '$interval', '$modal', function($scope, 
     }
 
     $scope.uptime = 0;
-    $scope.playersNum = 0;
+    $scope.nbA2 = $scope.nbH2 = $scope.nbNeutral = 0;
 
     var getServerInfoMsg = {
         msg: 'getServerInfo'
     };
 
-    setTimeout(function() {sendMessage(getServerInfoMsg, 'serverInfo', function(msg){
+    sendMessage(getServerInfoMsg, 'serverInfo', function(msg){
         $scope.uptime = msg.uptime;
-        $scope.playersNum = msg.playersNum;
+        $scope.nbA2 = msg.nbA2;
+        $scope.nbH2 = msg.nbH2;
+        $scope.nbNeutral = msg.nbNeutral;
 
         $scope.$apply();
-    }) }, 100);
+    });
+
+    registerListener("playerIncrease", function(msg){
+        if(msg.team == 0)
+            $scope.nbA2++;
+        else if(msg.team == 1)
+            $scope.nbH2++;
+        else {
+            $scope.nbNeutral++;
+        }
+    });
+
+    registerListener("playerDecrease", function(msg){
+        if(msg.team == 0)
+            $scope.nbA2--;
+        else if(msg.team == 1)
+            $scope.nbH2--;
+        else {
+            $scope.nbNeutral--;
+        }
+    });
 
     var updateUptime = $interval(function(){
         $scope.uptime += 1;

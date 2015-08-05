@@ -82,7 +82,7 @@ div.container-fluid
         div.col-lg-12
           div.well
             b État du serveur
-            p Nombre de joueur : {{playersNum}}
+            p Nombre de joueur : {{nbA2 + nbH2 + nbNeutral}} ( <span class="text-info">{{nbA2}} A2</span> / <span class="text-success"> {{nbNeutral}} neutres</span> / <span class="text-danger">{{nbH2}} H2</span> )
             p En ligne depuis : {{uptime | duration}}
             div
               button.btn.btn-default(ng-click="annonceServeur()") Passer une annonce
