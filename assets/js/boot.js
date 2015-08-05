@@ -3,6 +3,6 @@ sras.controller('Boot', ['$state', function($state){
 
   //Do all init stuff here
 
-  $state.go('update');
+  $state.go('getApiKey');
 
 }])

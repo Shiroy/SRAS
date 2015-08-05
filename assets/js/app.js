@@ -8,10 +8,6 @@ sras.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
       url: '/',
       controller: 'Boot'
     })
-    .state('update', {
-        template: loadView('updater'),
-        controller: 'updater'
-    })
     .state('getApiKey', {
       template: loadView('getApiKey'),
       controller: 'getApiKey'
