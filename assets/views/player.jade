@@ -15,7 +15,7 @@ div.row
                     p <b>Membre du group :</b>
                     ul
                         li(ng-repeat="member in playerInfo.groupMember")
-                            a(ui-sref="") {{member.name}} ({{member.race | race:member.gender}}, {{member.class | class:member.gender}}, niveau {{member.level}})
+                            a(href="" ui-sref="") {{member.name}} ({{member.race | race:member.gender}}, {{member.class | class:member.gender}}, niveau {{member.level}})
                     p(ng-if="playerInfo.groupMember.length < 2") Le joueur n'est pas dans un groupe
                 div.col-lg-6
                     p <b>Niveau : </b> {{playerInfo.level}}
@@ -34,7 +34,7 @@ div.row
                     p <b>Temps de jeu à ce niveau : </b> {{playerInfo.leveltime | duration}}  
                 div.col-lg-6
                     p <b>Guilde : </b>
-                        a( href="" ui-sref="dashboard.guild({id:{{playerInfo.guild.id}}})" ng-if="playerInfo.guild.id !== undefined") {{playerInfo.guild.name}}
+                        a(href="" ui-sref="dashboard.guild({id:{{playerInfo.guild.id}}})" ng-if="playerInfo.guild.id !== undefined") {{playerInfo.guild.name}}
                         p(ng-hide="playerInfo.guild.id !== undefined") Le joueur n'est pas dans une guilde
 div.row
     div.col-lg-12
@@ -47,25 +47,25 @@ div.row
                             tr
                                 td=disp + ': '
                                 td
-                                    a(href="#" rel="domain=fr,item={{" + variable + ".id}}") {{#{variable}.name ? #{variable}.name : 'Rien'}}
+                                    a(href="" rel="domain=fr,item={{" + variable + ".id}}") {{#{variable}.name ? #{variable}.name : 'Rien'}}
                     p Sac à dos : <button ng-click="cacherSacADos = !cacherSacADos" class="btn btn-default">{{cacherSacADos ? 'Afficher' : 'Cacher'}}</button>
                     div(collapse="cacherSacADos")
-                        p(ng-repeat="item in sacADos" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}"> {{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
+                        p(ng-repeat="item in sacADos" style="margin-left: 20px") <a href="" rel="domain=fr,item={{item.id}}"> {{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
                     div(ng-repeat="s in sac")
                         a(href="#" rel="domain=fr,item={{s.item.id}}") {{s.item ? s.item.name : "Pas de sac"}}
                         button(ng-disabled="!s.item" ng-click="s.hide = !s.hide").btn.btn-default {{s.hide ? "Ouvrir" : "Fermer"}}
                         div(collapse="s.hide")
-                            p(ng-repeat="item in s.contenue" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
+                            p(ng-repeat="item in s.contenue" style="margin-left: 20px") <a href="" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
                             
                     h3 Banque du joueur
                     p <button class="btn btn-default" ng-click="hideBank = !hideBank">{{hideBank ? "Afficher" : "Cacher"}} la banque</button>
                     div(collapse="hideBank")
-                        p(ng-repeat="item in bank" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
+                        p(ng-repeat="item in bank" style="margin-left: 20px") <a href="" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
                     div(ng-repeat="s in bankSac")
                         a(href="#" rel="domain=fr,item={{s.item.id}}") {{s.item ? s.item.name : "Pas de sac"}}
                         button(ng-disabled="!s.item" ng-click="s.hide = !s.hide").btn.btn-default {{s.hide ? "Ouvrir" : "Fermer"}}
                         div(collapse="s.hide")
-                            p(ng-repeat="item in s.contenue" style="margin-left: 20px") <a href="#" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
+                            p(ng-repeat="item in s.contenue" style="margin-left: 20px") <a href="" rel="domain=fr,item={{item.id}}">{{item.name}}</a> <span ng-show="item.count > 1">(x{{item.count}})</span>
 div.row
     div.col-lg-12        
         button.btn.btn-default(ng-click='hideHistory = !hideHistory') {{hideHistory ? 'Afficher' : 'Cacher'}} l'historique
