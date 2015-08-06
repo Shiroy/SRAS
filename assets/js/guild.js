@@ -17,7 +17,7 @@ sras.controller('guild', ['$scope', '$stateParams', function($scope, $stateParam
 
         $scope.guild = msg;
 
-        $scope.guild.createdDate = new Date($scope.guild.createdDate);
+        $scope.guild.createdDate = new Date($scope.guild.createdDate * 1000);
 
         $scope.guild.ranks.forEach(function(r){
             r.hide = true;
