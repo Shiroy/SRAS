@@ -25,7 +25,8 @@ gulp.task('js', function(){
         'player.js',
         'guild.js',
         'account.js',
-        'whisper.js'
+        'whisper.js',
+        'playerLogWatcher.js'
     ]))
     .pipe(concat('sras.js'))
     .pipe(uglify())

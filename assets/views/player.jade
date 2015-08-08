@@ -71,7 +71,15 @@ div.row
         button.btn.btn-default(ng-click='hideHistory = !hideHistory') {{hideHistory ? 'Afficher' : 'Cacher'}} l'historique
         div.row(collapse='hideHistory')
             div.col-lg-12
-                div.well
+                div.well(ng-if="playerInfo" ng-controller="playerLogWatcher" pseudo="playerInfo.name" guid="guid")
+                    div.row
+                        div.col-lg-12
+                            p(ng-repeat="log in logs" ng-switch="log.data.brief")
+                                <span class="text-success">{{log.date}}</span> <b>{{playerName}}</b> {{log.data.brief}}&nbsp;
+                                span(ng-switch-when="a obtenu l'objet") <a href="" rel="domain=fr,item={{log.data.id}}">{{log.data.name}}</a> <span ng-show="log.data.count > 1">(x{{log.data.count}})</span>
+                                span(ng-switch-when="a detruit l'item") <a href="" rel="domain=fr,item={{log.data.id}}">{{log.data.name}}</a> <span ng-show="log.data.count > 1">(x{{log.data.count}})</span>
+                            pagination(ng-model="page" total-items="totalItem" items-per-page="-1" ng-change="loadPage()")
+                                
 div.row
     div.col-lg-12
         button.btn.btn-default(ng-click='hideSkills = !hideSkills') {{hideSkills ? 'Afficher' : 'Cacher'}} les compétences

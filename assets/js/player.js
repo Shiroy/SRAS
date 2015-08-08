@@ -48,8 +48,11 @@ sras.controller('player', ['$scope', '$stateParams', function($scope, $statePara
 
     $scope.playerInfo;
 
+
     if($stateParams.guid === undefined || $stateParams.guid <= 0)
         return;
+
+    $scope.guid = $stateParams.guid;
 
     var requestPlayer = {
         msg: 'playerRequest',
