@@ -82,7 +82,7 @@ sras.controller('map', ['$scope', '$interval', '$modal', function($scope, $inter
                 if(err)
                     throw err;
                 $scope.mapLoaded = "true";
-                $scope.selectedMap = $scope.cartes[2];
+                $scope.selectedMap = $scope.cartes[1];
                 $scope.$apply();
                 $scope.selectMap($scope.selectedMap);
             })
@@ -272,7 +272,19 @@ sras.controller('map', ['$scope', '$interval', '$modal', function($scope, $inter
                     if(followedPlayer == pin.name){
                         positionVue.x = pix.x - ctx.canvas.width/2;
                         positionVue.y = pix.y - ctx.canvas.height/2;
+                        if(mapOpt.map != pin.Map){
+                            $scope.cartes.forEach(function(carte){
+                                if(carte.map == pin.Map)
+                                    $scope.selectedMap = carte;
+                                    $scope.selectMap($scope.selectedMap);
+                            });
+                            $scope.$apply();
+                        }
                     }
+                }
+                else {
+                    if(mapOpt.map != pin.Map)
+                        return;
                 }
 
                 ctx.drawImage(pinImg, pix.x, pix.y);
