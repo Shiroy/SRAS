@@ -4,6 +4,9 @@ div.container-fluid
       p 
         b Entrez votre clé d'accès
       p
-        input(type='text' ng-model='apiKey' ng-enter='apiKey.length > 0 && ok()' autofocus)
+        input.form-control(type='text' ng-model='apiKey' ng-enter='apiKey.length > 0 && ok()' autofocus)
       p
-        button.btn.btn-success(ng-click='ok()' ng-disabled='!apiKey.length') Valider
+        button.btn.btn-success(ng-click='ok()' ng-disabled='!apiKey.length || !serverList.length') Valider
+      p Selectionner le serveur auquel se connecter:
+      p
+        select.form-control(ng-model="selectedRealm" ng-options="server.name for server in serverList")

@@ -5,7 +5,7 @@ sras.controller('connect', ['$scope', '$state', function($scope, $state){
     webSocket.close();
   }
 
-  webSocket = new WebSocket('ws://62.210.100.11:21194/');
+  webSocket = new WebSocket('ws://' + referenceServer + '/');
 
   webSocket.onerror = function(error) {
     $state.go('fatal', {msg: 'Impossible de se connecter'});
